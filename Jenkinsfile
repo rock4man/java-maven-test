@@ -14,6 +14,8 @@ pipeline {
 
         stage('Build & Test') {
             steps {
+                // The 'mvn clean package' command will now generate JaCoCo reports 
+                // because of the changes made to your pom.xml
                 bat 'mvn clean package'
             }
         }
@@ -21,7 +23,18 @@ pipeline {
 
     post {
         always {
+            // Record test results
             junit '**/target/surefire-reports/*.xml'
+            
+            // Record JaCoCo coverage results
+            jacoco(
+                execPattern: '**/target/jacoco.exec',
+                classPattern: '**/target/classes',
+                sourcePattern: '**/src/main/java',
+                exclusionPattern: '**/src/test/java'
+            )
+            
+            // Archive the generated JAR file
             archiveArtifacts artifacts: 'target/*.jar'
         }
     }

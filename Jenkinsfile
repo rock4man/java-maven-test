@@ -26,13 +26,6 @@ pipeline {
             // Record test results
             junit '**/target/surefire-reports/*.xml'
             
-            // Record JaCoCo coverage results
-            jacoco(
-                execPattern: '**/target/jacoco.exec',
-                classPattern: '**/target/classes',
-                sourcePattern: '**/src/main/java',
-                exclusionPattern: '**/src/test/java'
-            )
             
             // Archive the generated JAR file
             archiveArtifacts artifacts: 'target/*.jar'

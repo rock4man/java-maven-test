@@ -5,19 +5,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest {
 
-    Calculator calculator = new Calculator();
-
+	 Calculator cal=new Calculator();
     @Test
-    void testAddition() {
-        assertEquals(5, calculator.add(2, 3));
-    }
-
-    @Test
-    void testMultiplication() {
-        assertEquals(6, calculator.multiply(2, 3));
+    public void testAdd() {
+        int result = cal.add(2, 3);
+        assertEquals(5, result);
     }
     @Test
-    void testSubtraction() {
-        assertEquals(1, calculator.subtract(2,3));
+    public void testSubtract() {
+        int result = cal.subtract(5, 2);
+        assertEquals(3, result);
     }
+    @Test
+    public void testMultiply() {
+        int result = cal.multiply(4, 5);
+        assertEquals(20, result);
+    }
+    @Test
+    public void testDivide() {
+        int result = cal.divide(10, 2);
+        assertEquals(5, result);
+    }
+    @Test
+    void testDivisionByZero() {
+        assertThrows(ArithmeticException.class, () -> {
+            cal.divide(10, 0);
+        });
+}
 }
